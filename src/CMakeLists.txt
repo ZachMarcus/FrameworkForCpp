@@ -3,6 +3,8 @@
 
 ADD_EXECUTABLE(Main
     Main.cpp
+    ${DOCTEST_FILE}
+    ${OPTPARSE_FILE}
 )
 
 TARGET_INCLUDE_DIRECTORIES(Main PUBLIC
@@ -10,6 +12,7 @@ TARGET_INCLUDE_DIRECTORIES(Main PUBLIC
 )
 
 TARGET_LINK_LIBRARIES(Main
+    config4cpp
     Project
 )
 

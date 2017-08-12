@@ -1,0 +1,11 @@
+sudo: false
+
+language: cpp
+
+compiler:
+    - clang
+    - gcc
+
+script:
+    - ./test.bash
+    - make check
