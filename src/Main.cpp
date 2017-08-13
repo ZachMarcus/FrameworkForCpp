@@ -14,6 +14,36 @@
 
 int main(int argc, char** argv) {
 
+    // OptParse usage
+    optparse::OptionParser parser = optparse::OptionParser().description("Main.cpp argument parser");
+    parser.add_option("--configFile") \
+          .dest("configFile") \
+          .action("store") \
+          .type("string") \
+          .set_default("../config/MainConfig.cfg") \
+          .help("filepath to config FILE to be parsed by config4cpp") \
+          .metavar("FILE");
+    parser.add_option("--logFile")
+          .dest("logFile")
+          .action("store")
+          .type("string")
+          .set_default("../config/Log4Cxx.cfg")
+          .help("filepath to log config FILE to be parsed by Log4Cxx")
+          .metavar("FILE");
+
+    optparse::Values options = parser.parse_args(argc, argv);
+    std::vector<std::string> parsedArgs = parser.args();
+
+    if (!options.get("configFile").getStr().empty()) {
+        std::cout << "ConfigFile: " << options["configFile"] << std::endl;
+    }
+    if (!options.get("logFile").getStr().empty()) {
+        std::cout << "LogFile: " << options["logFile"] << std::endl;
+    }
+
+
+
+
     // Doctest boilerplate
     doctest::Context context;
     context.addFilter("test-case-exclude", "*math"); // exclude test cases with "math" in their name
@@ -28,37 +58,7 @@ int main(int argc, char** argv) {
         return doctestReturn; // propagate the result of the tests
     }
 
-    // OptParse usage
-    optparse::OptionParser parser = optparse::OptionParser().description("Main.cpp argument parser");
-    parser.add_option("-cf", "--configFile")
-          .dest("configFile")
-          .action("store")
-          .type("string")
-          .set_default("./config/MainConfig.cfg")
-          .help("filepath to config FILE to be parsed by config4cpp")
-          .metavar("FILE");
-    parser.add_option("-lf", "--logFile")
-          .dest("logFile")
-          .action("store")
-          .type("string")
-          .set_default("./config/Log4Cxx.cfg")
-          .help("filepath to log config FILE to be parsed by Log4Cxx")
-          .metavar("FILE");
 
-    optparse::Values options = parser.parse_args(argc, argv);
-    std::vector<std::string> parsedArgs = parser.args();
-
-    for (auto i : parsedArgs) {
-        std::cout << i << std::endl;
-    }
-
-
-    if (options.get("configFile")) {
-        std::cout << "ConfigFile: " << options["configFile"] << std::endl;
-    }
-    if (options.get("logFile")) {
-        std::cout << "LogFile: " << options["logFile"] << std::endl;
-    }
 
 
     int projectReturn = 0;

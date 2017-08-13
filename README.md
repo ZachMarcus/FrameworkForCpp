@@ -10,7 +10,7 @@ If starting with all of that preconfigured and set up makes that easy, then this
  - A full project layout with the structure for tests, src, include
  - A Sample [optparse](https://github.com/myint/optparse "Python's optparse but C++ and header-only") usage in Main.cpp
  - Inclusion of [Config4cpp](http://www.config4star.org/ "Config4*'s homepage")
- - Inclusion of [Log4cxx](https://logging.apache.org/log4cxx "Apache Log4cxx's homepage)
+ - Inclusion of [Log4cxx](https://logging.apache.org/log4cxx "Apache Log4cxx's homepage")
  - Inclusion of [DocTest](https://github.com/onqtam/doctest "Doctest's github homepage")
     - Note that the following line should only occur once per binary:
 ```

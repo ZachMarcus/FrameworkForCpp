@@ -101,6 +101,12 @@ namespace optparse
             long double t;
             return (valid && (std::istringstream(str) >> t)) ? t : 0;
         }
+
+        std::string getStr() const
+        {
+            return str;
+        }
+
     private:
 
         const std::string str;
@@ -1093,7 +1099,8 @@ namespace optparse
             else if (o.action() == "help")
             {
                 print_help();
-                std::exit(0);
+                return;
+                //std::exit(0);
             }
             else if (o.action() == "version")
             {
