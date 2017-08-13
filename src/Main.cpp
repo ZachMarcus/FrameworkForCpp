@@ -3,7 +3,7 @@
 
 
 #include "Project.h"
-
+// Can comment this one out and define another macro to remove all tests
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
 #include "config4cpp/ConfigurationException.h"
@@ -14,7 +14,7 @@
 
 int main(int argc, char** argv) {
 
-    // OptParse usage
+    // OptParse - Header Only, and modified from github page
     optparse::OptionParser parser = optparse::OptionParser().description("Main.cpp argument parser");
     parser.add_option("--configFile") \
           .dest("configFile") \
@@ -42,6 +42,19 @@ int main(int argc, char** argv) {
     }
 
 
+    // Config4Cpp library
+    config4cpp::Configuration *configuration = config4cpp::Configuration::create();
+    const char* exampleString = "";
+    try {
+        configuration->parse(options["configFile"].c_str());
+        exampleString = configuration->lookupString("", "exampleString");
+    } catch (const config4cpp::ConfigurationException &except) {
+        std::cerr << except.c_str() << std::endl;
+        configuration->destroy();
+        return 1;
+    }
+    std::cout << "Value of exampleString from config is: ";
+    std::cout << exampleString << std::endl;
 
 
     // Doctest boilerplate
@@ -57,7 +70,6 @@ int main(int argc, char** argv) {
     if (context.shouldExit()) { // important - query flags (and --exit) rely on doing this
         return doctestReturn; // propagate the result of the tests
     }
-
 
 
 
